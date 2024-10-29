@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -54,5 +54,24 @@ public class User {
     private LocalDateTime licenseExpirationDate;
 
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private List<Participation> participations;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", cin='" + cin + '\'' +
+                ", email='" + email + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", joinDate=" + joinDate +
+                ", licenseExpirationDate=" + licenseExpirationDate +
+                ", participations=" + participations +
+                '}';
+    }
 }
