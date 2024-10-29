@@ -1,0 +1,27 @@
+spring:
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url:
+    username: hunter_league
+    password:
+
+  jpa:
+    properties:
+      hibernate:
+        default_schema: public
+
+  liquibase:
+    enabled: true
+    change-log: db/changelog/master.yaml
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+
+  docker:
+    compose:
+      file: src/main/docker/compose.yml
+      enabled: true
+      lifecycle-management: start_only
