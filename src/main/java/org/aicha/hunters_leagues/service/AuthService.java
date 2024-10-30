@@ -1,8 +1,10 @@
 package org.aicha.hunters_leagues.service;
 
 import org.aicha.hunters_leagues.domain.User;
+import org.aicha.hunters_leagues.domain.enums.Role;
 import org.aicha.hunters_leagues.repository.UserRepository;
 import org.aicha.hunters_leagues.web.exception.ResourceNotFoundException;
+import org.aicha.hunters_leagues.web.vm.RegisterVM;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,20 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public User register(User user) {
+    public User register(RegisterVM registerVM) {
+        User user = User.builder()
+                .username(registerVM.getUsername())
+                .password(registerVM.getPassword())
+                .firstName(registerVM.getFirstName())
+                .lastName(registerVM.getLastName())
+                .cin(registerVM.getCin())
+                .email(registerVM.getEmail())
+                .nationality(registerVM.getNationality())
+                .role(registerVM.getRole())
+                .joinDate(LocalDateTime.now())
+                .build();
         validateUser(user);
         checkUserExistence(user);
-        user.setJoinDate(LocalDateTime.now());
         return userRepository.save(user);
     }
 

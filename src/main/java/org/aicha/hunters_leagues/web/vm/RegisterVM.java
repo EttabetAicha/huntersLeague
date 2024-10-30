@@ -2,6 +2,7 @@ package org.aicha.hunters_leagues.web.vm;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
+import org.aicha.hunters_leagues.domain.enums.Role;
 
 @Getter
 @Setter
@@ -30,4 +31,7 @@ public class RegisterVM {
 
     @NotBlank(message = "Nationality is mandatory")
     private String nationality;
+
+    @NotNull(message = "Role is mandatory")
+    private Role role;
 }
