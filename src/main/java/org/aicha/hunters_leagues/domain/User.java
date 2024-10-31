@@ -1,5 +1,6 @@
 package org.aicha.hunters_leagues.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -52,7 +53,7 @@ public class User {
 
     @FutureOrPresent(message = "License expiration date cannot be in the past")
     private LocalDateTime licenseExpirationDate;
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     @ToString.Exclude
     private List<Participation> participations;
