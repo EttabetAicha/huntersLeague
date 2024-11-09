@@ -1,5 +1,6 @@
 package org.aicha.hunters_leagues.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -52,7 +53,26 @@ public class User {
 
     @FutureOrPresent(message = "License expiration date cannot be in the past")
     private LocalDateTime licenseExpirationDate;
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
+    @ToString.Exclude
     private List<Participation> participations;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", cin='" + cin + '\'' +
+                ", email='" + email + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", joinDate=" + joinDate +
+                ", licenseExpirationDate=" + licenseExpirationDate +
+                ", participations=" + participations +
+                '}';
+    }
 }

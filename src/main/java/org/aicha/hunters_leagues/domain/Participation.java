@@ -1,5 +1,6 @@
 package org.aicha.hunters_leagues.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +17,7 @@ public class Participation{
 
     @Id @GeneratedValue(strategy =  GenerationType.UUID)
     private UUID id;
-
+    @JsonBackReference
     @ManyToOne
     private User user;
 
