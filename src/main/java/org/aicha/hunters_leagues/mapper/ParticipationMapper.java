@@ -8,11 +8,11 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface ParticipationMapper {
 
-    @Mapping(source = "User.id", target = "UserId")
+    @Mapping(source = "user.id", target = "userId")
     @Mapping(source = "competition.id", target = "competitionId")
     ParticipationVM toVM(Participation participation);
 
-    @Mapping(source = "UserId", target = "User.id")
+    @Mapping(source = "userId", target = "user.id")
     @Mapping(source = "competitionId", target = "competition.id")
     Participation toEntity(ParticipationVM participationVM);
 }
