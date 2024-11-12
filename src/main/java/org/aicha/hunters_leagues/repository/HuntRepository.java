@@ -4,6 +4,7 @@ import org.aicha.hunters_leagues.domain.Hunt;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,4 +17,6 @@ public interface HuntRepository extends JpaRepository<Hunt, UUID> {
     @Transactional
     @Query(value = "DELETE FROM hunt WHERE species_id = :speciesId", nativeQuery = true)
     void deleteBySpeciesId(@Param("speciesId") UUID speciesId);
+    @Procedure("update_hunt_scores")
+    void updateHuntScores();
 }

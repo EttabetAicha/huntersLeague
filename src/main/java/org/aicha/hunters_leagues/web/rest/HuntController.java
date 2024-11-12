@@ -41,6 +41,12 @@ public class HuntController {
         return ResponseEntity.ok(huntMapper.toDTO(hunt));
     }
 
+    @PostMapping("/update-scores")
+    public ResponseEntity<Void> updateHuntScores() {
+        huntService.updateHuntScores();
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
         huntService.deleteById(id);

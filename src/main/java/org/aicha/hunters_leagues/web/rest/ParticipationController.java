@@ -45,14 +45,6 @@ public class ParticipationController {
         return ResponseEntity.ok(participationVM);
     }
 
-    @PutMapping("/{participationId}/score")
-    public ResponseEntity<String> updateScore(
-            @PathVariable UUID participationId,
-            @RequestBody ScoreDTO scoreDTO) {
-        participationService.updateScore(participationId, scoreDTO.getScore());
-        return ResponseEntity.ok("Score updated successfully");
-    }
-
     @GetMapping("/{userId}/results")
     public List<CompetitionResultDTO> getUserCompetitionResults(@PathVariable UUID userId) {
         return participationService.getUserCompetitionResults(userId);

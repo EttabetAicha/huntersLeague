@@ -51,4 +51,9 @@ public class HuntService {
     public void deleteBySpeciesId(UUID speciesId) {
         huntRepository.deleteBySpeciesId(speciesId);
     }
+    @Transactional
+    public void updateHuntScores() {
+        huntRepository.updateHuntScores();
+    }
+
 }
