@@ -13,6 +13,6 @@ public interface ParticipationRepository extends JpaRepository<Participation, UU
     List<Participation> findByUserId(UUID userId);
     @Query("SELECT p FROM Participation p WHERE p.competition.id = :competitionId ORDER BY p.score DESC LIMIT 3")
     List<Participation> findTopThreeByCompetitionIdOrderByScoreDesc(@Param("competitionId") UUID competitionId);
-    @Query(" SELECT p FROM Participation p JOIN FETCH p.competition c WHERE p.user.id =:appUserId AND c.date<CURRENT_TIMESTAMP ORDER BY c.date DESC ")
-    List<Participation> findPastCompetitionsByUserId(@Param("UserId") UUID appUserId);
+    @Query(" SELECT p FROM Participation p JOIN FETCH p.competition c WHERE p.user.id =:userId AND c.date<CURRENT_TIMESTAMP ORDER BY c.date DESC ")
+    List<Participation> findPastCompetitionsByUserId(@Param("userId") UUID userId);
 }
