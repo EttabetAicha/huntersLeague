@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: ettabet aicha
+      changes:
+        - createProcedure:
+            procedureName: update_hunt_scores
+            procedureBody: |
+              CREATE OR REPLACE FUNCTION update_hunt_scores() RETURNS VOID AS $$
+              DECLARE
+                  done BOOLEAN DEFAULT FALSE;
+                  hunt_id UUID;
+                  species_type VARCHAR(255);
+                  species_factor INT;
+                  difficulty_factor INT;
+                  weight DOUBLE PRECISION;
+                  points_associated INT;
+                  score DOUBLE PRECISION;
+                  hunt_cursor CURSOR FOR
+                      SELECT h.id, s.category, h.weight, s.difficulty, s.points
+                      FROM hunt h
+                      JOIN species s ON h.species_id = s.id;
+              BEGIN
+                  FOR hunt_record IN hunt_cursor LOOP
+                      hunt_id := hunt_record.id;
+                      species_type := hunt_record.category;
+                      weight := hunt_record.weight;
+                      difficulty_factor := hunt_record.difficulty;
+                      points_associated := hunt_record.points;
+
+                      CASE species_type
+                          WHEN 'SEA' THEN species_factor := 9;
+                          WHEN 'BIG_GAME' THEN species_factor := 3;
+                          WHEN 'BIRD' THEN species_factor := 5;
+                          ELSE species_factor := 0;
+                      END CASE;
+
+                      score := points_associated + (weight * species_factor) * difficulty_factor;
+
+                      UPDATE hunt
+                      SET score = score
+                      WHERE id = hunt_id;
+                  END LOOP;
+              END;
+              $$ LANGUAGE plpgsql;

@@ -1,6 +1,5 @@
 package org.aicha.hunters_leagues.domain;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.aicha.hunters_leagues.domain.enums.Difficulty;
@@ -29,7 +28,6 @@ public class Species {
 
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
-
     private Integer points;
 
 }
